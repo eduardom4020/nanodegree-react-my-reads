@@ -1,0 +1,16 @@
+Git utils, by Eduardo Melo:
+
+PS: DO NOT CHANGE README FILE IN BRANCHS THAT ARE NOT develop OR master
+
+Merge commit messages:
+    -> When some job is in progress:
+        DOING: <report current status progress>, if needed add an TODO tag and describe what will be done on next commit.
+        ex: DOING: Describing my git practices. TODO: Finish this description.
+    -> When job is done:
+        DONE: <report what was done>
+        ex: DONE: Finished my git practices description
+    -> When merging a branch:
+        MERGE: merged with <branch name> branch and logged it in README.md
+        ps: allways add modification log to README when merging. That's no need for do this
+        on working branch, leave this to be done only when merges that branch to develop or
+        develop to master.
