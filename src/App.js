@@ -3,6 +3,8 @@ import React from 'react';
 import './styles/App.css';
 import MainPage from './components/mainpage';
 import SearchPage from './components/searchpage';
+import AddBookButton from './components/btaddbook';
+import addButtonPaths from './static/addbuttonexactpaths.json';
 // TODO: Exclude Link's import when these two components bellow
 // were changed to another scripts.
 import { Route } from 'react-router-dom';
@@ -41,6 +43,12 @@ class BooksApp extends React.Component {
       <div className='app'>
         <Route exact path='/' component={MainPage} />
         <Route path='/search' component={SearchPage} />
+
+        {
+          addButtonPaths.map(buttonPath => (
+            <Route exact path={buttonPath} component={AddBookButton} />
+          ))
+        }
       </div>
     )
   }
