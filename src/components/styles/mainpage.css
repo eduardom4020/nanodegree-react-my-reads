@@ -1,0 +1,16 @@
+.list-books-title {
+    padding: 1vh 0 1vh 0;
+    background: #2e7c31;
+    text-align: center;
+}
+  
+.list-books-title h1 {
+    font-weight: 400;
+    margin: 0;
+    color: white;
+}
+  
+.list-books-content {
+    padding: 0 0 8vh 0;
+    flex: 1;
+}
