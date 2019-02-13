@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './APIClients/BooksAPI';
 import './styles/App.css';
 import MainPage from './components/mainpage';
 import SearchPage from './components/searchpage';
@@ -38,10 +38,51 @@ import { Route } from 'react-router-dom';
 // )
 
 class BooksApp extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books: []
+    }
+  }
+
+  addBookToShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    .then(this.setState(prevState => ({
+      books: prevState.books.concat(book)
+    })))
+  }
+
+  removeBookFromShelf = book => {
+    BooksAPI.update(book, 'noShelf')
+    .then(this.setState(prevState => ({
+      books: prevState.books.filter(oldStateBook => oldStateBook.id != book.id)
+    })))
+  }
+
+  clearAllShelves = () => {
+    this.state.books.forEach(book => {
+      this.removeBookFromShelf(book);
+    });
+  }
+  
+  componentDidMount() {
+    // clearing book shelves
+    BooksAPI.getAll() //get all books currently in user's shelves
+    .then(books => {
+      this.setState({
+        books: books
+      })
+    })
+  }
+  
   render() {
     return (
       <div className='app'>
-        <Route exact path='/' component={MainPage} />
+        <Route exact path='/' render={() => (
+          <MainPage books={this.state.books} />
+        )} />
+        
         <Route path='/search' component={SearchPage} />
 
         {

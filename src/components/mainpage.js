@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './styles/mainpage.css';
+import Book from './book';
 
 // const ShelfPageTemporary = () => (
 //   <div className='list-books'>
@@ -172,6 +173,10 @@ class MainPage extends Component {
                 <div className='list-books-title'>
                     <h1>MyReads</h1>
                 </div>
+
+                <h1>A Book Test</h1>
+                <Book />
+
                 <div className='list-books-content'>
                 </div>
             </div>
