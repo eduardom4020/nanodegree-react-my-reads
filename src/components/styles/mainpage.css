@@ -13,4 +13,5 @@
 .list-books-content {
     padding: 0 0 8vh 0;
     flex: 1;
+    display: inline-block;
 }

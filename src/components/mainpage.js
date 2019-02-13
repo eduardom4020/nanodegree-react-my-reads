@@ -168,16 +168,20 @@ class MainPage extends Component {
     }
 
     render() {
+        const {books} = this.props;
+
         return (
             <div className='list-books'>
                 <div className='list-books-title'>
                     <h1>MyReads</h1>
                 </div>
-
-                <h1>A Book Test</h1>
-                <Book />
-
+                <h1>This is not a shelf</h1>
                 <div className='list-books-content'>
+                    {
+                        books.map(book => (
+                            <Book {...book}/>
+                        ))
+                    }
                 </div>
             </div>
         )

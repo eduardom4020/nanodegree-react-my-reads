@@ -1,13 +1,14 @@
 import React from 'react';
 import './styles/book.css';
 
-const Book = ({shelf, cover, title, authors}) => (
+const Book = ({id, imageLinks, title, authors}) => (
     <div className='book'>
         <div className='book-top'>
-            <div className='book-cover' style={{ 
-                width: 128, height: 193, 
-                backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' 
-            }}></div>
+            <div className='book-cover' 
+                style={{ 
+                    backgroundImage: `url("${imageLinks ? imageLinks.thumbnail : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAABQUlEQVR4Ae3bQWrCQBiG4dnZRa6gTSG7SEm//xBeSNftTjxCcwiF1n09gjmBVxCh2I1Ol6GQRWDSTALv+x1geGC2vyMiImrTfKqVDnY2/88766DVfOq6LE9sp7v5/qa77fLEdVM2UWW+/6nKJq6LVJqPM5UuPGW6RQPclLnQbG0+4tYuNB1jAlS50OwaE2Df4QD/d65lXREAAADQFAAAAAAAAAAAAAAAAAAAAAAAQJHa3vZFOkpA+qBX/Zg3b1e9ZZORAbTQyXw9nbQYDeD5SR9Nz+mzSAcOqD9Ow+rPNFxA/XGaVn+mAQHiDgAAAAAiDAAAAAAAAAAAAAAAAAAAAAAAAAAAAJeogAsnKNpEBWxcaC+PMc+wbObC03s0QNnVKeIx6ilieHmibd/HoNrmiesym9myn3Nc+7Jlu79PRET0C5GC9waPZG+fAAAAAElFTkSuQmCC'}")` 
+                }}>
+            </div>
             <div className='book-shelf-changer'>
                 <select>
                     <option value='move' disabled>Move to...</option>
@@ -18,8 +19,8 @@ const Book = ({shelf, cover, title, authors}) => (
                 </select>
             </div>
         </div>
-        <div className='book-title'>To Kill a Mockingbird</div>
-        <div className='book-authors'>Harper Lee</div>
+        <div className='book-title'>{title}</div>
+        <div className='book-authors'>{authors}</div>
     </div>
 )
 

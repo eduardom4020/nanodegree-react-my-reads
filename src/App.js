@@ -37,6 +37,30 @@ import { Route } from 'react-router-dom';
 //   </div>
 // )
 
+const searchTerms = [
+  'Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 
+  'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 
+  'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 
+  'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 
+  'Education', 'Everything', 
+  'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 
+  'Games', 'Gandhi', 
+  'Homer', 'Horror', 'Hugo', 
+  'Ibsen', 'Journey', 
+  'Kafka', 'King', 
+  'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 
+  'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 
+  'Negotiate', 
+  'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 
+  'React', 'Redux', 'River', 'Robotics', 'Rowling', 
+  'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 
+  'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 
+  'Ultimate', 
+  'Virtual Reality', 
+  'Web Development', 
+  'iOS'
+]
+
 class BooksApp extends React.Component {
   constructor(props) {
     super(props);
@@ -68,12 +92,14 @@ class BooksApp extends React.Component {
   
   componentDidMount() {
     // clearing book shelves
-    BooksAPI.getAll() //get all books currently in user's shelves
-    .then(books => {
-      this.setState({
-        books: books
-      })
-    })
+    // BooksAPI.getAll() //get all books currently in user's shelves
+    // .then(books => {
+    //   this.setState({
+    //     books: books
+    //   })
+    // })
+
+    BooksAPI.search(searchTerms[10]).then(res => {this.setState(prevState => ({books: prevState.books.concat(res)}))});
   }
   
   render() {
