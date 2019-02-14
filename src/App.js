@@ -61,12 +61,28 @@ const searchTerms = [
   'iOS'
 ]
 
+const initial_shelves = [
+  {
+    value: 'currentlyReading',
+    name: 'Currently Reading'
+  },
+  {
+    value: 'wantToRead',
+    name: 'Want To Read'
+  },
+  {
+    value: 'Read',
+    name: 'Read'
+  },
+]
+
 class BooksApp extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      books: []
+      books: [],
+      shelves: initial_shelves
     }
   }
 
@@ -106,7 +122,7 @@ class BooksApp extends React.Component {
     return (
       <div className='app'>
         <Route exact path='/' render={() => (
-          <MainPage books={this.state.books} />
+          <MainPage {...this.state} />
         )} />
         
         <Route path='/search' component={SearchPage} />

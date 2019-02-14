@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './styles/mainpage.css';
 import Book from './book';
+import ShelfSlector from './shelfselector';
 
 // const ShelfPageTemporary = () => (
 //   <div className='list-books'>
@@ -168,7 +169,7 @@ class MainPage extends Component {
     }
 
     render() {
-        const {books} = this.props;
+        const {books, shelves} = this.props;
 
         return (
             <div className='list-books'>
@@ -179,7 +180,9 @@ class MainPage extends Component {
                 <div className='list-books-content'>
                     {
                         books.map(book => (
-                            <Book {...book}/>
+                            <div style={{margin: '1vh 1vw 1vh 1vw', padding: 0}} >
+                                <Book {...book} ShelfSlector={<ShelfSlector shelves={shelves}/>}/>
+                            </div>
                         ))
                     }
                 </div>
