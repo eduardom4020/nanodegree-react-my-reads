@@ -1,7 +1,8 @@
 import React from 'react';
 import './styles/book.css';
+import ShelfSlector from './shelfselector';
 
-const Book = ({id, imageLinks, title, authors, ShelfSlector=null}) => (
+const Book = ({id, imageLinks, title, authors, shelves=null}) => (
     <div className='book'>
         <div className='book-top'>
             <div className='book-cover' 
@@ -10,7 +11,7 @@ const Book = ({id, imageLinks, title, authors, ShelfSlector=null}) => (
                 }}>
             </div>
             <div className='book-shelf-changer'>
-                {ShelfSlector}
+                <ShelfSlector shelves={shelves}/>
             </div>
         </div>
         <div className='book-title'>{title}</div>
