@@ -4,6 +4,11 @@ import './styles/shelf.css';
 
 const DEFAULT_FILTER_FUNCTION = thisShelf => book => book.shelf && book.shelf === thisShelf.value;
 
+/**
+* @class
+* @classdesc This class describes a shelf object.
+* @type {Component}
+*/
 const Shelf = ({books, shelves, thisShelf, moveBookToShelf = null, filterFunc = DEFAULT_FILTER_FUNCTION(thisShelf), children=null}) => (
     <React.Fragment>
         <h1>{thisShelf.name}</h1>

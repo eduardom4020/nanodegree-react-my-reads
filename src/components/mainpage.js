@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import './styles/mainpage.css';
 import Shelf from './shelf';
 
+/**
+* @class
+* @classdesc This class describes the main page with all of user shelves.
+* @type {Component}
+*/
 class MainPage extends Component {
     componentDidMount() {
         const {refreshBooks} = this.props;

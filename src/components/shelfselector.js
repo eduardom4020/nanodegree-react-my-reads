@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+* @class
+* @classdesc This class describes the shelves selector.
+* @type {Component}
+*/
 const ShelfSelector = ({shelves, moveBookToShelf=null, bookAttached=null}) => (
     <select 
         onChange={ event => (

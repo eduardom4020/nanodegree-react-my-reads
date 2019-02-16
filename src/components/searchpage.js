@@ -39,6 +39,11 @@ const INITIAL_SEARCH_SHELVES = [
     }
 ];
 
+/**
+* @class
+* @classdesc This class describes the search page.
+* @type {Component}
+*/
 class SearchPage extends Component {
     constructor(props) {
         super(props);
