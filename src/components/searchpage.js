@@ -68,22 +68,33 @@ class SearchPage extends Component {
             })
         } else {
             BooksAPI.search(value).then(res => {
-                const {books: shelvesBooks} = this.props;
-                console.log('shelvesBooks', shelvesBooks)
-                const new_books = res.map(book => {
-                    const filter_book = shelvesBooks.filter(shelfBook => shelfBook.id == book.id);
-                    if(filter_book.length > 0) {
-                        return filter_book[0];
-                    } else {
-                        return book;
-                    }
-                });
+                const booksTreated = this.treatSearchResult(res);
 
                 this.setState({
-                    books: new_books
+                    books: booksTreated
                 });
             });
         }
+    }
+
+    treatSearchResult = queryRes => {
+        if(queryRes.constructor != Array) {
+            console.log('QUERY RES IS NOT AN ARRAY', queryRes)
+            return [];
+        }   
+
+        const {books: shelvesBooks} = this.props;
+
+        const booksRes = queryRes.map(book => {
+            const bookFromShelfFilter = shelvesBooks.filter(shelfBook => shelfBook.id == book.id);
+            if(bookFromShelfFilter.length > 0) {
+                return bookFromShelfFilter[0];
+            } else {
+                return book;
+            }
+        });
+
+        return booksRes;
     }
 
     componentDidMount() {
