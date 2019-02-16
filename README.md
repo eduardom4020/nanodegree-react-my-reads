@@ -12,3 +12,4 @@
 3. Added button separated from pages. Now it's possible to put a button only adding it's path to an json file.
 4. Finished book sctructure and separate selector in another component.
 5. Created shelves and functions that made books and group of books move bettwen then. Added to selector the function that moves a book from some shelf to another.
+6. Created search page reuzing shelf component, applied some adjusts to all other components. The core of application is built!
