@@ -19,7 +19,7 @@ const ShelfSelector = ({shelves, moveBookToShelf=null, bookAttached=null}) => (
                 </option>
             ))
         }
-        <option value='none'>None</option>
+        <option value='none' selected={bookAttached.shelf == null}>None</option>
     </select>
 );
 
