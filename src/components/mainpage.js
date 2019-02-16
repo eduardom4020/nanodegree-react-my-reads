@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import './styles/mainpage.css';
 import Shelf from './shelf';
-import * as BooksAPI from '../APIClients/BooksAPI';
 
 class MainPage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const {refreshBooks} = this.props;
 
@@ -16,19 +11,7 @@ class MainPage extends Component {
         }
     }
 
-    componentDidUpdate() {
-        // this.refreshBooks();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-        // if(nextProps == null) {
-        //     return true;
-        // }
-
-        // const {booksChanged} = this.props;
-        // return booksChanged(nextProps.books);
-	}
+    
 
     render() {
         const {shelves} = this.props;
@@ -39,8 +22,8 @@ class MainPage extends Component {
                     <h1>MyReads</h1>
                 </div>
                 {
-                    shelves.map(shelf => (
-                        <Shelf {...this.props} thisShelf={shelf} />
+                    shelves.map((shelf, it) => (
+                        <Shelf {...this.props} thisShelf={shelf} key={`shelf${it}`} />
                     ))
                 }
             </div>

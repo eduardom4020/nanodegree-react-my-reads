@@ -7,19 +7,20 @@ const ShelfSelector = ({shelves, moveBookToShelf=null, bookAttached=null}) => (
             && moveBookToShelf 
             && moveBookToShelf(bookAttached, event.target.value)
         )}
+        defaultValue={bookAttached.shelf}
     >
-        <option value='move' disabled>Move to...</option>
+        <option value='move' disabled key={'shelfSelectorMoveTo'}>Move to...</option>
         {
-            shelves.map(shelf => (
+            shelves.map((shelf, it) => (
                 <option 
                     value={shelf.value}
-                    selected={bookAttached.shelf === shelf.value}
+                    key={`shelfSelectorOption${it}`}
                 >
                     {shelf.name}
                 </option>
             ))
         }
-        <option value='none' selected={bookAttached.shelf == null}>None</option>
+        <option value='none' key={'shelfSelectorNone'}>None</option>
     </select>
 );
 

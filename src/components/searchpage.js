@@ -2,34 +2,41 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Shelf from './shelf';
 import * as BooksAPI from '../APIClients/BooksAPI';
+import './styles/searchpage.css';
 
-const searchShelf = {
-    value: 'ABSTRACT__search',
-    name: 'Result'
-};
+//TODO: Make Extra - autocomplete in search
 
-const searchTerms = [
-	'Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 
-	'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 
-	'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 
-	'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 
-	'Education', 'Everything', 
-	'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 
-	'Games', 'Gandhi', 
-	'Homer', 'Horror', 'Hugo', 
-	'Ibsen', 'Journey', 
-	'Kafka', 'King', 
-	'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 
-	'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 
-	'Negotiate', 
-	'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 
-	'React', 'Redux', 'River', 'Robotics', 'Rowling', 
-	'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 
-	'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 
-	'Ultimate', 
-	'Virtual Reality', 
-	'Web Development', 
-	'iOS'
+// const SEARCH_TERMS = [
+// 	'Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 
+// 	'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 
+// 	'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 
+// 	'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 
+// 	'Education', 'Everything', 
+// 	'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 
+// 	'Games', 'Gandhi', 
+// 	'Homer', 'Horror', 'Hugo', 
+// 	'Ibsen', 'Journey', 
+// 	'Kafka', 'King', 
+// 	'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 
+// 	'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 
+// 	'Negotiate', 
+// 	'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 
+// 	'React', 'Redux', 'River', 'Robotics', 'Rowling', 
+// 	'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 
+// 	'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 
+// 	'Ultimate', 
+// 	'Virtual Reality', 
+// 	'Web Development', 
+// 	'iOS'
+// ];
+
+//TODO: Make Extra - Create more search shelves and 
+//give to the user the capacity to enable or disable them
+const INITIAL_SEARCH_SHELVES = [
+    {
+        value: 'SEARCH__result',
+        name: 'Result'
+    }
 ];
 
 class SearchPage extends Component {
@@ -38,12 +45,7 @@ class SearchPage extends Component {
 
         this.state = {
             books: [],
-            shelves: [
-                {
-                    value: 'SEARCH__result',
-                    name: 'Result'
-                }
-            ],
+            shelves: INITIAL_SEARCH_SHELVES,
             searchText: '',
         };
     }
@@ -78,15 +80,14 @@ class SearchPage extends Component {
     }
 
     treatSearchResult = queryRes => {
-        if(queryRes.constructor != Array) {
-            console.log('QUERY RES IS NOT AN ARRAY', queryRes)
+        if(queryRes.constructor !== Array) {
             return [];
         }   
 
         const {books: shelvesBooks} = this.props;
 
         const booksRes = queryRes.map(book => {
-            const bookFromShelfFilter = shelvesBooks.filter(shelfBook => shelfBook.id == book.id);
+            const bookFromShelfFilter = shelvesBooks.filter(shelfBook => shelfBook.id === book.id);
             if(bookFromShelfFilter.length > 0) {
                 return bookFromShelfFilter[0];
             } else {

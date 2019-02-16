@@ -6,9 +6,9 @@ import SearchPage from './components/searchpage';
 import AddBookButton from './components/btaddbook';
 import addButtonPaths from './static/addbuttonexactpaths.json';
 import { Route } from 'react-router-dom';
-import { ArrayOfObjectsEquality } from './functions/objectutils'
+import { ArrayOfObjectsEquality } from './functions/objectutils';
 
-const initialShelves = [
+const INITIAL_SHELVES = [
 	{
 		value: 'currentlyReading',
 		name: 'Currently Reading'
@@ -20,7 +20,7 @@ const initialShelves = [
 	{
 		value: 'read',
 		name: 'Read'
-	},
+	}
 ];
 
 class BooksApp extends React.Component {
@@ -29,8 +29,8 @@ class BooksApp extends React.Component {
 
 		this.state = {
 			books: [],
-			shelves: initialShelves,
-			mounted: false,
+			shelves: INITIAL_SHELVES,
+			mounted: false
 		};
 	}
 
@@ -40,12 +40,12 @@ class BooksApp extends React.Component {
 		});
 	}
 
-	booksChanged = next_books => {
-		if(next_books && this.state.books) {
-			const next_state_id_shelf = next_books.map(book => ({[book.id]: book.shelf}));
-			const curr_state_id_shelf = this.state.books.map(book => ({[book.id]: book.shelf}));
+	booksChanged = toCompareBooks => {
+		if(toCompareBooks && this.state.books) {
+			const nextStateIdShelf = toCompareBooks.map(book => ({[book.id]: book.shelf}));
+			const currStateIdShelf = this.state.books.map(book => ({[book.id]: book.shelf}));
 			
-			return !ArrayOfObjectsEquality(curr_state_id_shelf, next_state_id_shelf);
+			return !ArrayOfObjectsEquality(currStateIdShelf, nextStateIdShelf);
 		} else {
 			return true;
 		}
@@ -68,7 +68,7 @@ class BooksApp extends React.Component {
 	removeBookFromShelf = book => {
 		BooksAPI.update(book, 'none')
 		.then(this.setState(prevState => ({
-			books: prevState.books.filter(oldStateBook => oldStateBook.id != book.id)
+			books: prevState.books.filter(oldStateBook => oldStateBook.id !== book.id)
 		})))
 	}
 
@@ -78,105 +78,84 @@ class BooksApp extends React.Component {
 		});
 	}
 
-	updateGroupOfBooksAPI = books_per_shelf => {
-		const result = books_per_shelf.map(async book_to_shelf => {
-			const shelf_value = this.state.shelves[book_to_shelf.to_shelf].value;
-			await BooksAPI.update(book_to_shelf.book, shelf_value);
-			return {...book_to_shelf.book, shelf: shelf_value};
+	updateGroupOfBooksAPI = booksPerShelf => {
+		const result = booksPerShelf.map(async bookToShelf => {
+			const shelfValue = this.state.shelves[bookToShelf.toShelf].value;
+			await BooksAPI.update(bookToShelf.book, shelfValue);
+			return {...bookToShelf.book, shelf: shelfValue};
 		});
 		return result;
 	}
 
+	validateAndGetShelfValue = shelf => {
+		if(shelf === 'none') {
+			return 'none';
+		} else if(typeof shelf == 'number') {
+			return this.state.shelves[shelf].value;
+		} else if(typeof shelf == 'string') { 
+			const filterShelves = this.state.shelves.filter(aShelf => aShelf.value === shelf);
+			return filterShelves.length > 0 ? shelf : false;
+		} else {
+			return false;
+		}
+	} 
+
+	moveBookToShelf = (book, shelf) => {
+		const shelfValue = this.validateAndGetShelfValue(shelf);
+		
+		if(shelfValue) { 
+			BooksAPI.update(book, shelfValue)
+			.then(this.setState(prevState => {
+					const booksNewState = prevState.books.map(aBook => aBook.id === book.id ? {...aBook, shelf: shelfValue} : aBook);
+					return ({
+						books: booksNewState
+					})
+				})
+			)	
+		}
+	}
+
 	moveBooksToShelfByOrder = (books, shelf) => {
-		const books_to_shelf = books.map(book => ({book: book, to_shelf: shelf}));
-		const res = this.updateGroupOfBooksAPI(books_to_shelf);
+		const bookToShelf = books.map(book => ({book: book, toShelf: shelf}));
+		const res = this.updateGroupOfBooksAPI(bookToShelf);
 		Promise.all(res)
-		.then(new_books_state => {
+		.then(newBooksState => {
 			this.setState({
-				books: new_books_state
+				books: newBooksState
 			});
 		});
 	}
 
-	moveBookToShelf = (book, shelf) => {
-		let shelf_value = 'none';
-		if(typeof shelf == 'number') {
-			shelf_value = this.state.shelves[shelf].value;
-		} else if(typeof shelf == 'string') { 
-			const filter_shelves = this.state.shelves.filter(a_shelf => a_shelf.value === shelf);
-			if(filter_shelves.length === 0) {
-				console.log('invalid shelf passed as params');
-				return;
-			} else {
-				shelf_value = shelf;
-			}
-		} else {
-			return;
-		}
-		
-		BooksAPI.update(book, shelf_value)
-		.then(res_book => {
-			this.setState(prevState => {
-				const books_new_state = prevState.books.map(a_book => a_book.id === book.id ? {...a_book, shelf: shelf_value} : a_book);
-				console.log('BOOKS NEW STATE', books_new_state);
-				return ({
-					books: books_new_state
-				})
-			})
-		})
-	}
+	//Old way to do the method above
 
-	moveGroupOfBooksToShelf = (prevState, shelf) => {
-		let prev_state_id_shelf = prevState.books.map(book => ({[book.id]: book.shelf}))
-		prev_state_id_shelf = prev_state_id_shelf.length > 0 ? prev_state_id_shelf.reduce((acc, curr) => ({...acc, ...curr})) : {};
-		let curr_state_id_shelf = this.state.books.map(book => ({[book.id]: book.shelf}))
-		curr_state_id_shelf = curr_state_id_shelf.length > 0 ? curr_state_id_shelf.reduce((acc, curr) => ({...acc, ...curr})) : {};
+	// moveGroupOfBooksToShelf = (prevState, shelf) => {
+	// 	let prevStateIdShelf = prevState.books.map(book => ({[book.id]: book.shelf}))
+	// 	prevStateIdShelf = prevStateIdShelf.length > 0 ? prevStateIdShelf.reduce((acc, curr) => ({...acc, ...curr})) : {};
+	// 	let currStateIdShelf = this.state.books.map(book => ({[book.id]: book.shelf}))
+	// 	currStateIdShelf = currStateIdShelf.length > 0 ? currStateIdShelf.reduce((acc, curr) => ({...acc, ...curr})) : {};
 
-		const books_to_move = Object.keys(curr_state_id_shelf)
-		.filter(key => (
-			!prev_state_id_shelf.hasOwnProperty(key) || 
-			curr_state_id_shelf[key] == null || (
-			prev_state_id_shelf.hasOwnProperty(key) && 
-			prev_state_id_shelf[key] != null && 
-			curr_state_id_shelf[key] !== prev_state_id_shelf[key]
-			)
-		));
+	// 	const booksToMove = Object.keys(currStateIdShelf)
+	// 	.filter(key => (
+	// 		!prevStateIdShelf.hasOwnProperty(key) || 
+	// 		currStateIdShelf[key] == null || (
+	// 		prevStateIdShelf.hasOwnProperty(key) && 
+	// 		prevStateIdShelf[key] != null && 
+	// 		currStateIdShelf[key] !== prevStateIdShelf[key]
+	// 		)
+	// 	));
 
-		// console.log('BOOKS TO MOVE', books_to_move, prev_state_id_shelf, curr_state_id_shelf);
-
-		if(books_to_move.length > 0) {
-			this.moveBookToShelfByOrder(books_to_move[0], shelf);
-		}
-	}
+	// 	if(booksToMove.length > 0) {
+	// 		this.moveBookToShelfByOrder(booksToMove[0], shelf);
+	// 	}
+	// }
   
 	componentDidMount() {
-	// 	// clearing book shelves
-		// BooksAPI.getAll() //get all books currently in user's shelves
-		// .then(books => {
-		// 	console.log('INITIAL BOOKS!', books)
-		// 	this.setState({
-		// 		books: books
-		// 	});
-		// });
-
-	// 	this.clearAllShelves()
 		this.refreshBooks();
 		this.setState({
 			mounted: true
 		});
 	}
 
-  // TODO: need to put this logic and group of books movement onanother component
-	
-
-	componentDidUpdate(prevProps, prevState) {
-		// this.clearAllShelves()
-		// const books = this.state.books;
-		// this.moveBooksToShelfByOrder(books, 0);
-
-		// this.moveGroupOfBooksToShelf(prevState, 0);
-	}
-  
 	render() {
 		return (
 			<div className='app'>
@@ -200,8 +179,8 @@ class BooksApp extends React.Component {
 				/>
 
 				{
-					addButtonPaths.map(buttonPath => (
-						<Route exact path={buttonPath} component={AddBookButton} />
+					addButtonPaths.map((buttonPath, it) => (
+						<Route exact path={buttonPath} component={AddBookButton} key={`btPath${it}`}/>
 					))
 				}
 			</div>

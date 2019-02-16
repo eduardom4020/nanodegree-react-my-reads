@@ -1,0 +1,13 @@
+.search-books-results .list-books-content {
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+.close-search:hover {
+    background-color: rgb(171, 180, 189);
+    cursor: pointer;
+}
