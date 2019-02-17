@@ -39,6 +39,7 @@ The proccess flow is decribed bellow:
 ### Versions
 
 * 0.1.0: Copied base project template from udacity repository.
+* 1.0.0: Finished main application with all functions needed.
 
 ### Updates Log
 
