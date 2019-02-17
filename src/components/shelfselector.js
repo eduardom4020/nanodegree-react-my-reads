@@ -12,7 +12,7 @@ const ShelfSelector = ({shelves, moveBookToShelf=null, bookAttached=null}) => (
             && moveBookToShelf 
             && moveBookToShelf(bookAttached, event.target.value)
         )}
-        defaultValue={bookAttached.shelf}
+        defaultValue={bookAttached && bookAttached.shelf ? bookAttached.shelf : 'none'}
     >
         <option value='move' disabled key={'shelfSelectorMoveTo'}>Move to...</option>
         {

@@ -102,6 +102,7 @@ class SearchPage extends Component {
             })
         } else {
             BooksAPI.search(value).then(res => {
+                console.log(res)
                 const booksTreated = this.treatSearchResult(res);
 
                 this.setState({
