@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">import</span><span class="WHIT"> </span><span class="NAME">React</span><span class="WHIT"> </span><span class="NAME">from</span><span class="WHIT"> </span><span class="STRN">'react'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="NAME">import</span><span class="WHIT"> </span><span class="NAME">Book</span><span class="WHIT"> </span><span class="NAME">from</span><span class="WHIT"> </span><span class="STRN">'./book'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  3</span> </span><span class="NAME">import</span><span class="WHIT"> </span><span class="STRN">'./styles/shelf.css'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  4</span> 
+<span class='line'>  5</span> </span><span class="COMM">/**
+<span class='line'>  6</span>  * Shelf
+<span class='line'>  7</span>  * @namespace Shelf
+<span class='line'>  8</span>  */</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="COMM">/**
+<span class='line'> 11</span> * @description The initial configuration of a shelf filter. 
+<span class='line'> 12</span> * It determines the books that can be in that shelf.
+<span class='line'> 13</span> * @constant
+<span class='line'> 14</span> * @type {Array}
+<span class='line'> 15</span> * @default
+<span class='line'> 16</span> */</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">DEFAULT_FILTER_FUNCTION</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">thisShelf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">book</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">book.shelf</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">book.shelf</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">thisShelf.value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> 
+<span class='line'> 19</span> </span><span class="COMM">/**
+<span class='line'> 20</span> * @class
+<span class='line'> 21</span> * @classdesc This class describes a shelf object. When creating a shelf you
+<span class='line'> 22</span> * shold pass as props a list of books, a list of shelves and an object containing the
+<span class='line'> 23</span> * info about this shelf. You should pass too a function to move books bettwen shelves.
+<span class='line'> 24</span> * Optionally, you can change the filter function of this shelf passing the to parameter
+<span class='line'> 25</span> * filterFunc a function that filters wich books you whant to show. It's very usefull when
+<span class='line'> 26</span> * you have the same source of books and whant to pass them to all shelves, without filter
+<span class='line'> 27</span> * on parent's level. The children props of this object contains what will be showed by
+<span class='line'> 28</span> * the shelf when it has no content.
+<span class='line'> 29</span> * @type {Component}
+<span class='line'> 30</span> */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">Shelf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">{</span><span class="NAME">books</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">shelves</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">thisShelf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">moveBookToShelf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">filterFunc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">DEFAULT_FILTER_FUNCTION</span><span class="PUNC">(</span><span class="NAME">thisShelf</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">children</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="PUNC">&lt;</span><span class="NAME">React.Fragment</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="PUNC">&lt;</span><span class="NAME">h1</span><span class="PUNC">></span><span class="PUNC">{</span><span class="NAME">thisShelf.name</span><span class="PUNC">}</span><span class="PUNC">&lt;</span><span class="REGX">/h1>
+<span class='line'> 34</span>         &lt;div className='list-books-content'>
+<span class='line'> 35</span>             {
+<span class='line'> 36</span>                 books.length > 0 
+<span class='line'> 37</span>                 ? books.filter(filterFunc)
+<span class='line'> 38</span>                 .map((book, it) => (
+<span class='line'> 39</span>                     &lt;div className='book-container' key={`bookContainer${it}`}>
+<span class='line'> 40</span>                         &lt;Book 
+<span class='line'> 41</span>                             thisBook={book} 
+<span class='line'> 42</span>                             shelves={shelves}
+<span class='line'> 43</span>                             moveBookToShelf={moveBookToShelf}
+<span class='line'> 44</span>                             key={`book${it}`}
+<span class='line'> 45</span>                         /</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">                    </span><span class="PUNC">&lt;</span><span class="REGX">/div>
+<span class='line'> 47</span>                 ))
+<span class='line'> 48</span>                 : children == null
+<span class='line'> 49</span>                 ? (
+<span class='line'> 50</span>                     &lt;div className='empty-list-books'>
+<span class='line'> 51</span>                         &lt;h3>This Shelf is Empty&lt;/</span><span class="NAME">h3</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">                        </span><span class="PUNC">&lt;</span><span class="NAME">p</span><span class="PUNC">></span><span class="NAME">Please</span><span class="WHIT"> </span><span class="NAME">click</span><span class="WHIT"> </span><span class="NAME">on</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">button</span><span class="WHIT"> </span><span class="NAME">bellow</span><span class="WHIT"> </span><span class="NAME">or</span><span class="WHIT"> </span><span class="NAME">access</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="NAME">search</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="NAME">to</span><span class="WHIT"> </span><span class="NAME">find</span><span class="WHIT"> </span><span class="NAME">books</span><span class="WHIT"> </span><span class="NAME">to</span><span class="WHIT"> </span><span class="NAME">place</span><span class="WHIT"> </span><span class="NAME">on</span><span class="WHIT"> </span><span class="NAME">shelves</span><span class="PUNC">!</span><span class="PUNC">&lt;</span><span class="REGX">/p>
+<span class='line'> 53</span>                     &lt;/</span><span class="NAME">div</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">                </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">                </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">children</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">        </span><span class="PUNC">&lt;</span><span class="REGX">/div>
+<span class='line'> 58</span>     &lt;/</span><span class="NAME">React.Fragment</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 60</span> 
+<span class='line'> 61</span> </span><span class="NAME">export</span><span class="WHIT"> </span><span class="KEYW">default</span><span class="WHIT"> </span><span class="NAME">Shelf</span><span class="PUNC">;</span></pre></body></html>

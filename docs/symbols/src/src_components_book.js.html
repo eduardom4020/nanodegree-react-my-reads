@@ -1,0 +1,57 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">import</span><span class="WHIT"> </span><span class="NAME">React</span><span class="WHIT"> </span><span class="NAME">from</span><span class="WHIT"> </span><span class="STRN">'react'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="NAME">import</span><span class="WHIT"> </span><span class="STRN">'./styles/book.css'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  3</span> </span><span class="NAME">import</span><span class="WHIT"> </span><span class="NAME">ShelfSlector</span><span class="WHIT"> </span><span class="NAME">from</span><span class="WHIT"> </span><span class="STRN">'./shelfselector'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  4</span> 
+<span class='line'>  5</span> </span><span class="COMM">/**
+<span class='line'>  6</span> * @description The route to material icon that is used as book's placeholder.
+<span class='line'>  7</span> * @constant
+<span class='line'>  8</span> * @type {string}
+<span class='line'>  9</span> * @default
+<span class='line'> 10</span> */</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">THUMBNAIL_PLACEHOLDER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAABQUlEQVR4Ae3bQWrCQBiG4dnZRa6gTSG7SEm//xBeSNftTjxCcwiF1n09gjmBVxCh2I1Ol6GQRWDSTALv+x1geGC2vyMiImrTfKqVDnY2/88766DVfOq6LE9sp7v5/qa77fLEdVM2UWW+/6nKJq6LVJqPM5UuPGW6RQPclLnQbG0+4tYuNB1jAlS50OwaE2Df4QD/d65lXREAAADQFAAAAAAAAAAAAAAAAAAAAAAAQJHa3vZFOkpA+qBX/Zg3b1e9ZZORAbTQyXw9nbQYDeD5SR9Nz+mzSAcOqD9Ow+rPNFxA/XGaVn+mAQHiDgAAAAAiDAAAAAAAAAAAAAAAAAAAAAAAAAAAAJeogAsnKNpEBWxcaC+PMc+wbObC03s0QNnVKeIx6ilieHmibd/HoNrmiesym9myn3Nc+7Jlu79PRET0C5GC9waPZG+fAAAAAElFTkSuQmCC'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="COMM">/**
+<span class='line'> 14</span> * @class
+<span class='line'> 15</span> * @classdesc This class describes the book object. It contains the folder, title and author.
+<span class='line'> 16</span> * If some of these values are null, it will not be showed up. In case of folder, it will be
+<span class='line'> 17</span> * replaced by the placeholder image. This component contains an shelf selector that is only
+<span class='line'> 18</span> * shows if passed as props.
+<span class='line'> 19</span> * @type {Component}
+<span class='line'> 20</span> * @param {Object} thisBook
+<span class='line'> 21</span> * @param {function} moveBookToShelf
+<span class='line'> 22</span> * @param {Array} shelves
+<span class='line'> 23</span> */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">Book</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">{</span><span class="NAME">thisBook</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">moveBookToShelf</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">shelves</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="PUNC">&lt;</span><span class="NAME">div</span><span class="WHIT"> </span><span class="NAME">className</span><span class="PUNC">=</span><span class="STRN">'book'</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">        </span><span class="PUNC">&lt;</span><span class="NAME">div</span><span class="WHIT"> </span><span class="NAME">className</span><span class="PUNC">=</span><span class="STRN">'book-top'</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">            </span><span class="PUNC">&lt;</span><span class="NAME">div</span><span class="WHIT"> </span><span class="NAME">className</span><span class="PUNC">=</span><span class="STRN">'book-cover'</span><span class="WHIT"> 
+<span class='line'> 28</span>                 </span><span class="NAME">style</span><span class="PUNC">=</span><span class="PUNC">{</span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 29</span>                     </span><span class="NAME">backgroundImage</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="TOKN">`</span><span class="NAME">url</span><span class="PUNC">(</span><span class="STRN">"${
+<span class='line'> 30</span>                         thisBook.imageLinks && thisBook.imageLinks.thumbnail 
+<span class='line'> 31</span>                         ? thisBook.imageLinks.thumbnail 
+<span class='line'> 32</span>                         : THUMBNAIL_PLACEHOLDER
+<span class='line'> 33</span>                     }"</span><span class="PUNC">)</span><span class="TOKN">`</span><span class="WHIT"> 
+<span class='line'> 34</span>                 </span><span class="PUNC">}</span><span class="PUNC">}</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">            </span><span class="PUNC">&lt;</span><span class="REGX">/div>
+<span class='line'> 36</span>             {
+<span class='line'> 37</span>                 moveBookToShelf && (
+<span class='line'> 38</span>                     &lt;div className='book-shelf-changer'>
+<span class='line'> 39</span>                         &lt;ShelfSlector 
+<span class='line'> 40</span>                             shelves={shelves} 
+<span class='line'> 41</span>                             moveBookToShelf={moveBookToShelf}
+<span class='line'> 42</span>                             bookAttached={thisBook}
+<span class='line'> 43</span>                         /</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">                    </span><span class="PUNC">&lt;</span><span class="REGX">/div>
+<span class='line'> 45</span>                 )
+<span class='line'> 46</span>             }
+<span class='line'> 47</span>         &lt;/</span><span class="NAME">div</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">        </span><span class="PUNC">&lt;</span><span class="NAME">div</span><span class="WHIT"> </span><span class="NAME">className</span><span class="PUNC">=</span><span class="STRN">'book-title'</span><span class="PUNC">></span><span class="PUNC">{</span><span class="NAME">thisBook.title</span><span class="PUNC">}</span><span class="PUNC">&lt;</span><span class="REGX">/div>
+<span class='line'> 49</span>         &lt;div className='book-authors'>{thisBook.authors}&lt;/</span><span class="NAME">div</span><span class="PUNC">></span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">    </span><span class="PUNC">&lt;</span><span class="TOKN"></span></pre></body></html>

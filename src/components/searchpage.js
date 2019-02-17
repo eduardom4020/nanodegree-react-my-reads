@@ -32,6 +32,19 @@ import './styles/searchpage.css';
 
 //TODO: Make Extra - Create more search shelves and 
 //give to the user the capacity to enable or disable them
+
+/**
+ * Search Page
+ * @namespace SearchPage
+ */
+
+/**
+* @description The initial configuration of search shelves. 
+* These are not user workspace shelfs and will not have durable information.
+* @constant
+* @type {Array}
+* @default
+*/
 const INITIAL_SEARCH_SHELVES = [
     {
         value: 'SEARCH__result',
@@ -41,7 +54,9 @@ const INITIAL_SEARCH_SHELVES = [
 
 /**
 * @class
-* @classdesc This class describes the search page.
+* @classdesc This class describes the search page. It contains one or more search shelves.
+* The books in it's state will be a combination of books that user has in shelf that matchs
+* the search result and books that are not in shelves but match even.
 * @type {Component}
 */
 class SearchPage extends Component {
@@ -55,6 +70,13 @@ class SearchPage extends Component {
         };
     }
 
+    /**
+    * @description Every time a user writes on input field, this method is called.
+    * It sets up a timeout to trigger another method, but if this method is called
+    * again, this timeout restart. When user stops writing, the next method is triggered.
+	* @param {Object} event
+	* @returns {null} This method returns nothing.
+	*/
     dynamicSearch = event => {
         const value = event.target.value;
 
@@ -62,13 +84,18 @@ class SearchPage extends Component {
             clearTimeout(this.timer);
         }
 
-        this.timer = setTimeout(this.startSearch(value) , 500);
+        this.timer = setTimeout(this.execSearch(value) , 500);
         this.setState({
             searchText: value
         })
     }
 
-    startSearch = value => () => {
+    /**
+    * @description Use the BooksAPI to search all books that match some search term, them set books state.
+	* @param {string} value
+	* @returns {null} This method returns nothing.
+	*/
+    execSearch = value => () => {
         if(value === '') {
             this.setState({
                 books: []
@@ -84,6 +111,12 @@ class SearchPage extends Component {
         }
     }
 
+    /**
+    * @description Get all books resulting of a search and check if they exists on user's shelves.
+    * For them, change the default shelf (None) to the shelf this book is currently inside.
+	* @param {?Array} queryRes
+	* @returns {Array} This method returns books of search with some changes on shelves if needed.
+	*/
     treatSearchResult = queryRes => {
         if(queryRes.constructor !== Array) {
             return [];
@@ -102,11 +135,18 @@ class SearchPage extends Component {
 
         return booksRes;
     }
-
+    
+    /**
+    * @description Create a global timer object. It will be used as search timeout.
+	*/
     componentDidMount() {
         this.timer = null;
     }
 
+    /**
+    * @description The render method. It contains all of the search tools and a path back
+    * to main page. It contains too a list of shelves, that are shelves that contains query results.
+	*/
     render() {
         return (
             <div className='search-books'>

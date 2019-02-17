@@ -191,6 +191,14 @@ ul.inheritsList
 	
 	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
 	
+	<li><a href="../symbols/AddBookButton.html">AddBookButton</a></li>
+	
+	<li><a href="../symbols/Book.html">Book</a></li>
+	
+	<li><a href="../symbols/Shelf.html">Shelf</a></li>
+	
+	<li><a href="../symbols/ShelfSelector.html">ShelfSelector</a></li>
+	
 </ul>
 <hr />
 			<!-- end publish.classesIndex -->
@@ -234,9 +242,9 @@ ul.inheritsList
 							<td class="attributes">&lt;constant&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#ADD_BUTTON_PATHS">ADD_BUTTON_PATHS</a></b>
+								<b><a href="../symbols/_global_.html#DEFAULT_FILTER_FUNCTION">DEFAULT_FILTER_FUNCTION</a></b>
 								</div>
-								<div class="description">The initial configuration of float buttons that moves user to search page.</div>
+								<div class="description">The initial configuration of a shelf filter.</div>
 							</td>
 						</tr>
 					
@@ -244,11 +252,9 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#booksChanged">booksChanged</a></b>
+								<b><a href="../symbols/_global_.html#dynamicSearch">dynamicSearch</a></b>
 								</div>
-								<div class="description">Receives a list of books object (it's only necessary that these objects
-have an valid ID on BooksAPI) and compares with books currently in BooksApp component
-state.</div>
+								<div class="description">Every time a user writes on input field, this method is called.</div>
 							</td>
 						</tr>
 					
@@ -256,9 +262,9 @@ state.</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#clearAllShelves">clearAllShelves</a></b>
+								<b><a href="../symbols/_global_.html#execSearch">execSearch</a></b>
 								</div>
-								<div class="description">Use removeBookFromShelf to remove all books from all shelves.</div>
+								<div class="description">Use the BooksAPI to search all books that match some search term, them set books state.</div>
 							</td>
 						</tr>
 					
@@ -266,9 +272,19 @@ state.</div>
 							<td class="attributes">&lt;constant&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#INITIAL_SHELVES">INITIAL_SHELVES</a></b>
+								<b><a href="../symbols/_global_.html#INITIAL_SEARCH_SHELVES">INITIAL_SEARCH_SHELVES</a></b>
 								</div>
-								<div class="description">The initial configuration of shelves.</div>
+								<div class="description">The initial configuration of search shelves.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;constant&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/_global_.html#THUMBNAIL_PLACEHOLDER">THUMBNAIL_PLACEHOLDER</a></b>
+								</div>
+								<div class="description">The route to material icon that is used as book's placeholder.</div>
 							</td>
 						</tr>
 					
@@ -276,71 +292,9 @@ state.</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#moveBooksToShelfByOrder">moveBooksToShelfByOrder</a></b>
+								<b><a href="../symbols/_global_.html#treatSearchResult">treatSearchResult</a></b>
 								</div>
-								<div class="description">Use BooksAPI to move a group of books to some shelf.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#moveBookToShelf">moveBookToShelf</a></b>
-								</div>
-								<div class="description">Use BooksAPI to move a book to some shelf.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#refreshBooks">refreshBooks</a></b>
-								</div>
-								<div class="description">Use BooksAPI to get all books on user's shelves.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#removeBookFromShelf">removeBookFromShelf</a></b>
-								</div>
-								<div class="description">Use BooksAPI to move book to none shelf.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#setBooks">setBooks</a></b>
-								</div>
-								<div class="description">Receives a list of books object (it's only necessary that these objects
-have an valid ID on BooksAPI) and sets the state of books in BooksApp component.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#updateGroupOfBooksAPI">updateGroupOfBooksAPI</a></b>
-								</div>
-								<div class="description">Use BooksAPI to update a group of books info changing them to some shelf.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#validateAndGetShelfValue">validateAndGetShelfValue</a></b>
-								</div>
-								<div class="description">Get shelf value by passing an index of shelves Array in BooksApp state or a string
-that is the name of the shelf.</div>
+								<div class="description">Get all books resulting of a search and check if they exists on user's shelves.</div>
 							</td>
 						</tr>
 					
@@ -365,19 +319,19 @@ that is the name of the shelf.</div>
 					Field Detail
 				</div>
 				
-					<a name="ADD_BUTTON_PATHS"> </a>
+					<a name="DEFAULT_FILTER_FUNCTION"> </a>
 					<div class="fixedFont">&lt;constant&gt; 
 					
 					
-					<b>ADD_BUTTON_PATHS</b>
+					<b>DEFAULT_FILTER_FUNCTION</b>
 					
 					</div>
 					<div class="description">
-						The initial configuration of float buttons that moves user to search page. 
-Put the EXACT routes that you wish to appear a button on the application.
+						The initial configuration of a shelf filter. 
+It determines the books that can be in that shelf.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/src_components_shelf.js.html">shelf.js</a>.
 						
 						
 					</div>
@@ -391,45 +345,20 @@ Put the EXACT routes that you wish to appear a button on the application.
 
 					<hr />
 				
-					<a name="booksChanged"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{Boolean}</span>
-					<b>booksChanged</b>
-					
-					</div>
-					<div class="description">
-						Receives a list of books object (it's only necessary that these objects
-have an valid ID on BooksAPI) and compares with books currently in BooksApp component
-state.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="clearAllShelves"> </a>
+					<a name="dynamicSearch"> </a>
 					<div class="fixedFont">
 					
 					<span class="light">{null}</span>
-					<b>clearAllShelves</b>
+					<b>dynamicSearch</b>
 					
 					</div>
 					<div class="description">
-						Use removeBookFromShelf to remove all books from all shelves.
+						Every time a user writes on input field, this method is called.
+It sets up a timeout to trigger another method, but if this method is called
+again, this timeout restart. When user stops writing, the next method is triggered.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/src_components_searchpage.js.html">searchpage.js</a>.
 						
 						
 					</div>
@@ -443,19 +372,44 @@ state.
 
 					<hr />
 				
-					<a name="INITIAL_SHELVES"> </a>
+					<a name="execSearch"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{null}</span>
+					<b>execSearch</b>
+					
+					</div>
+					<div class="description">
+						Use the BooksAPI to search all books that match some search term, them set books state.
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_components_searchpage.js.html">searchpage.js</a>.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="INITIAL_SEARCH_SHELVES"> </a>
 					<div class="fixedFont">&lt;constant&gt; 
 					
 					
-					<b>INITIAL_SHELVES</b>
+					<b>INITIAL_SEARCH_SHELVES</b>
 					
 					</div>
 					<div class="description">
-						The initial configuration of shelves. 
-Change this to add or remove shelves from your application.
+						The initial configuration of search shelves. 
+These are not user workspace shelfs and will not have durable information.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/src_components_searchpage.js.html">searchpage.js</a>.
 						
 						
 					</div>
@@ -469,18 +423,18 @@ Change this to add or remove shelves from your application.
 
 					<hr />
 				
-					<a name="moveBooksToShelfByOrder"> </a>
-					<div class="fixedFont">
+					<a name="THUMBNAIL_PLACEHOLDER"> </a>
+					<div class="fixedFont">&lt;constant&gt; 
 					
-					<span class="light">{null}</span>
-					<b>moveBooksToShelfByOrder</b>
+					
+					<b>THUMBNAIL_PLACEHOLDER</b>
 					
 					</div>
 					<div class="description">
-						Use BooksAPI to move a group of books to some shelf. Then update BooksApp state.
+						The route to material icon that is used as book's placeholder.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/src_components_book.js.html">book.js</a>.
 						
 						
 					</div>
@@ -494,147 +448,19 @@ Change this to add or remove shelves from your application.
 
 					<hr />
 				
-					<a name="moveBookToShelf"> </a>
+					<a name="treatSearchResult"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{null}</span>
-					<b>moveBookToShelf</b>
+					<span class="light">{Array}</span>
+					<b>treatSearchResult</b>
 					
 					</div>
 					<div class="description">
-						Use BooksAPI to move a book to some shelf. Then update BooksApp state.
+						Get all books resulting of a search and check if they exists on user's shelves.
+For them, change the default shelf (None) to the shelf this book is currently inside.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="refreshBooks"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{null}</span>
-					<b>refreshBooks</b>
-					
-					</div>
-					<div class="description">
-						Use BooksAPI to get all books on user's shelves. Then sets the BooksApp state
-with these books.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="removeBookFromShelf"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{null}</span>
-					<b>removeBookFromShelf</b>
-					
-					</div>
-					<div class="description">
-						Use BooksAPI to move book to none shelf. Then sets the BooksApp state
-to exclude this book.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="setBooks"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{null}</span>
-					<b>setBooks</b>
-					
-					</div>
-					<div class="description">
-						Receives a list of books object (it's only necessary that these objects
-have an valid ID on BooksAPI) and sets the state of books in BooksApp component.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="updateGroupOfBooksAPI"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{Array.<Promise>}</span>
-					<b>updateGroupOfBooksAPI</b>
-					
-					</div>
-					<div class="description">
-						Use BooksAPI to update a group of books info changing them to some shelf.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="validateAndGetShelfValue"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{(string | Boolean)}</span>
-					<b>validateAndGetShelfValue</b>
-					
-					</div>
-					<div class="description">
-						Get shelf value by passing an index of shelves Array in BooksApp state or a string
-that is the name of the shelf.
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/App.js.html">App.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/src_components_searchpage.js.html">searchpage.js</a>.
 						
 						
 					</div>
@@ -663,7 +489,7 @@ that is the name of the shelf.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Feb 16 2019 20:34:45 GMT-0300 (BRT)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Feb 17 2019 11:39:20 GMT-0300 (BRT)
 		</div>
 	</body>
 </html>
